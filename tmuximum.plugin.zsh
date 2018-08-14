@@ -6,6 +6,7 @@ function tmuximum::help() {
   echo "OPTIONS : \"-h\" --> Display help message (this message)"
   echo "          \"-s\" --> Start kill-session mode"
   echo "          \"-w\" --> Start kill-window mode"
+  echo "          \"-f\" --> Select fuzzy finder"
   echo "To quit tmuximum, press esc"
 }
 
@@ -135,7 +136,11 @@ function set-color() {
 }
 
 function set-filter() {
-  filters="fzf-tmux:fzf:peco:percol:gof"
+  if [[ $1 = "-f" ]]; then
+    filters=$2
+  else
+    filters="fzf-tmux:fzf:peco:percol:gof"
+  fi
   while [[ -n $filters ]]; do
   filter=${filters%%:*}
     if type "$filter" >/dev/null 2>&1; then
@@ -152,15 +157,16 @@ function set-filter() {
 }
 
 function main() {
-  set-filter
   set-color
   if [[ $# = 0 ]]; then
+    set-filter
     tmuximum::operation
-  elif [[ $# = 1 ]]; then
+  elif [[ $# = 1 ]] || [[ $# = 2 ]]; then
     case $1 in
       "-h" ) tmuximum::help ;;
       "-s" ) tmuximum::kill-session ;;
       "-w" ) tmuximum::kill-window ;;
+      "-f" ) set-filter $1 $2 && tmuximum::operation ;;
       * ) echo "tmuximum: illegal option $1" 1>&2 && exit 1 ;;
     esac
   else
