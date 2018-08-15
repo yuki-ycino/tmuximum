@@ -144,8 +144,7 @@ function set-filter() {
   while [[ -n $filters ]]; do
   filter=${filters%%:*}
     if type "$filter" >/dev/null 2>&1; then
-      [[ "$filter" = "fzf" ]] && filter=($filter --ansi --prompt="tmuximum >") && multi_filter=($filter --multi --ansi --prompt="tmuximum >")
-      [[ "$filter" = "fzf-tmux" ]] && filter=($filter -r --ansi --prompt="tmuximum >") && multi_filter=($filter --multi --ansi --prompt="tmuximum >")
+      [[ "$filter" =~ "fzf" ]] && filter=($filter --ansi --prompt="tmuximum >") && multi_filter=($filter --multi --ansi --prompt="tmuximum >")
       return 0
     else
       filters="${filters#*:}"
