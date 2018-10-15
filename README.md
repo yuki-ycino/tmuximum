@@ -23,25 +23,19 @@ bindkey '^[t' tmuximum
 #### zplug users
 
 ```zsh:.zshrc
-zplug "arks22/tmuximum", as:command
+zplug "yuki-ycino/tmuximum", as:command
 ```
 
 #### antigen users
 
 ```
-antigen bundle arks22/tmuximum
+antigen bundle yuki-ycino/tmuximum
 ```
 
 #### zgen users
 
 ```
 zgen load yuki-ycino/tmuximum
-```
-
-#### Manually
-
-```
-$ curl -L raw.github.com/arks22/tmuximum/master/install.bash | bash 
 ```
 
 ## Requirements
@@ -55,4 +49,5 @@ Either of these is necessary.
 
 (fzf-tmux has highest priority. For example, if you have fzf and percol, tmuximum use fzf.)
 
+## Original
 Qiita:(Witten in Japanese) 👉 https://qiita.com/arks22/items/cb109867c7aa094354e5
