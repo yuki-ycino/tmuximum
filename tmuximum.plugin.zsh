@@ -13,8 +13,6 @@ function tmuximum::help() {
 function tmuximum::operation() {
   answer=$(tmuximum::operation-list | "${filter[@]}" )
   case $answer in
-    *new\ session*    )tmux new-session ;;
-    *new\ window*     )tmux new-window ;;
     "kill sessions"   )tmuximum::kill-session ;;
     "kill windows"    )tmuximum::kill-window ;;
     *select\ window*  )tmux select-window -t $(echo  "$answer" | awk '{print $5}' | sed "s/://g") ;;
@@ -38,8 +36,6 @@ function tmuximum::operation-list() {
     tmux list-sessions 2>/dev/null | sed "/attached/d" | while read line; do
       echo -e "${GREEN}select session${DEFAULT} ==> [ $(echo $line | awk '{print $1 " " $2 " " $3}') ]"
     done
-    echo -e "${BLUE}new window${DEFAULT}"
-    echo -e "${BLUE}new session${DEFAULT}"
     if (( $(tmux display-message -p '#{session_windows}') > 1 )); then
       echo -e "${RED}kill${DEFAULT} windows"
     fi
